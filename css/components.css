@@ -2,6 +2,566 @@
    ARTESANICA - CSS COMPONENTES
    =================================================================== */
 
+/* ==================== ESTILOS DEL CARRITO ==================== */
+.cart-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.cart-items {
+    flex: 1;
+}
+
+.cart-summary {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 1rem;
+}
+
+.cart-summary h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: var(--color-texto-primario);
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.summary-details {
+    margin-bottom: 1.5rem;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    color: #555;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--color-texto-primario);
+}
+
+/* Estilos para móviles */
+@media (min-width: 768px) {
+    .cart-layout {
+        flex-direction: row;
+    }
+    
+    .cart-items {
+        flex: 2;
+    }
+    
+    .cart-summary {
+        flex: 1;
+        height: fit-content;
+    }
+}
+
+/* ==================== TÍTULO DE TARJETA DE NOTICIAS ==================== */
+.news-card-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--color-texto-primario);
+    width: 100%;
+}
+
+/* ==================== SECCIÓN DE PERFIL ==================== */
+.profile-content {
+    position: relative;
+    min-height: 100vh;
+    padding: 1rem;
+    background-color: #f8f9fa;
+}
+
+/* Contenedor principal del perfil */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Contenedor de columnas */
+.profile-columns {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+/* Tarjeta de perfil */
+.profile-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #e9ecef;
+}
+
+/* Encabezado del perfil */
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+/* Avatar del usuario */
+.profile-avatar {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #f1f3f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: #868e96;
+    margin: 0 auto 1.25rem;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.edit-avatar {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+}
+
+.edit-avatar:hover {
+    transform: scale(1.1);
+    background: var(--color-primary-dark);
+}
+
+/* Detalles del perfil */
+.profile-details {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.profile-details h2 {
+    font-size: 1.75rem;
+    color: var(--color-texto-primario);
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+}
+
+.profile-email {
+    color: var(--color-texto-secundario);
+    margin: 0 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+}
+
+.profile-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    color: var(--color-texto-secundario);
+}
+
+.member-since,
+.profile-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.profile-status i {
+    color: #10b981;
+    font-size: 0.6rem;
+}
+
+/* Estadísticas del perfil */
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1.2;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--color-texto-secundario);
+    text-align: center;
+    margin-top: 0.25rem;
+}
+
+/* Tarjeta de saldo */
+.balance-card {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+}
+
+.balance-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.balance-details {
+    flex: 1;
+}
+
+.balance-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin: 0 0 0.25rem;
+}
+
+.balance-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Sección de menú de cuenta */
+.profile-section {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+    font-size: 1.25rem;
+    color: var(--color-texto-primario);
+    margin: 0 0 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    color: var(--color-texto-primario);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.menu-item:hover {
+    background: rgba(var(--color-primary-rgb), 0.05);
+    color: var(--color-primary);
+    border-color: rgba(var(--color-primary-rgb), 0.1);
+}
+
+.menu-item i {
+    font-size: 1.25rem;
+    width: 24px;
+    text-align: center;
+    margin-right: 1rem;
+    color: var(--color-texto-secundario);
+}
+
+.menu-item:hover i {
+    color: var(--color-primary);
+}
+
+/* Botones de acción */
+.profile-actions {
+    display: flex;
+    gap: 0.75rem;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+}
+
+.btn-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    color: var(--color-texto-secundario);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-icon:hover {
+    background: rgba(var(--color-primary-rgb), 0.1);
+    color: var(--color-primary);
+    transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .profile-container {
+        grid-template-columns: 1fr 1.5fr;
+    }
+}
+
+@media (min-width: 768px) {
+    .profile-content {
+        padding: 2rem;
+    }
+    
+    .profile-container {
+        flex-direction: row;
+        gap: 2rem;
+    }
+    
+    .profile-columns {
+        flex-direction: row;
+        gap: 2rem;
+    }
+    
+    .profile-card {
+        width: 100%;
+        max-width: 380px;
+    }
+    
+    .content-column {
+        flex: 1;
+    }
+}
+
+@media (max-width: 767px) {
+    .profile-content {
+        padding: 1rem;
+    }
+    
+    .profile-card {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .profile-actions {
+        top: 1rem;
+        right: 1rem;
+    }
+    
+    .profile-stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+    }
+    
+    .stat-item {
+        padding: 0.5rem;
+        text-align: center;
+    }
+    
+    .balance-card {
+        margin: 1rem 0;
+    }
+}
+
+/* Estilos para el historial de compras */
+.purchases-list {
+    margin-top: 1rem;
+}
+
+.purchase-item {
+    background: var(--color-fondo-secundario);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.purchase-header {
+    padding: 1rem 1.5rem;
+    background-color: rgba(var(--color-primary-rgb), 0.03);
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.purchase-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.purchase-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.purchase-details:last-child {
+    border-bottom: none;
+}
+
+.purchase-info {
+    flex: 1;
+}
+
+.purchase-product-name {
+    font-weight: 500;
+    color: var(--color-texto-primario);
+    margin-bottom: 0.25rem;
+}
+
+.purchase-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: var(--color-texto-secundario);
+}
+
+.purchase-status {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.purchase-price {
+    font-weight: 600;
+    color: var(--color-texto-primario);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: var(--color-texto-secundario);
+    font-style: italic;
+}
+
+/* ==================== CONTADORES DE NOTIFICACIONES ==================== */
+.nav-counter {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #4CAF50; /* Color verde esmeralda para el contador */
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 600;
+    border-radius: 50%;
+    height: 16px;
+    min-width: 16px;
+    padding: 0 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    z-index: 10;
+    pointer-events: none;
+    box-sizing: border-box;
+    line-height: 1;
+    text-align: center;
+}
+
+/* Estilos para la barra de navegación superior */
+.navbar .nav-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilos para la barra de navegación inferior móvil */
+.bottom-nav .nav-item {
+    position: relative;
+}
+
+.bottom-nav .nav-item a {
+    position: relative;
+}
+
+/* Ajustes específicos para el contador en la barra inferior */
+.bottom-nav .nav-counter {
+    top: 4px;
+    right: 50%;
+    margin-right: -20px;
+    background-color: #4CAF50; /* Color verde esmeralda para el contador */
+    color: white;
+    transform: none;
+}
+
+/* Asegurar que los contadores se muestren correctamente */
+#contador-carrito,
+#contador-carrito-desk,
+#contador-favoritos,
+#contador-favoritos-desk {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
 /* ==================== BOTÓN VER MÁS ==================== */
 .ver-mas-btn-container {
     width: 100%;
@@ -341,6 +901,54 @@
     height: 12rem; /* 192px */
     object-fit: cover;
 }
+.product-card .nav-counter {
+    position: absolute;
+    top: 2px;
+    right: 20%;
+    background-color: #e74c3c;
+    color: var(--color-blanco);
+    font-size: 0.6rem;
+    font-weight: 700;
+    border-radius: 10px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    z-index: 2;
+    transform: translate(50%, -50%);
+}
+
+/* Ajuste específico para el contador en la barra inferior móvil */
+.bottom-nav .nav-counter {
+    position: absolute;
+    top: 4px;
+    right: 50%;
+    margin-right: -20px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border-radius: 50%;
+    height: 18px;
+    width: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    z-index: 10;
+    transform: none;
+}
+
+/* Asegurar que el contador sea visible sobre el ícono */
+.nav-item {
+    position: relative;
+    overflow: visible;
+}
 .product-card .favorite-btn {
     position: absolute;
     top: 0.5rem;
@@ -675,6 +1283,346 @@
     display: block;
 }
 
+/* ==================== TARJETA DE PERFIL ==================== */
+.profile-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-borde);
+    margin-bottom: 2rem;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.profile-avatar {
+    font-size: 5rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-texto);
+    margin: 0.5rem 0 0.25rem;
+}
+
+.profile-email {
+    color: var(--color-texto-secundario);
+    margin: 0 0 1rem;
+    font-size: 0.95rem;
+}
+
+.profile-member-since {
+    font-size: 0.85rem;
+    color: var(--color-texto-secundario);
+    margin: 0.5rem 0 1.5rem;
+    opacity: 0.8;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+/* ==================== PESTAÑAS DE PERFIL ==================== */
+.profile-tabs {
+    display: inline-flex;
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 0.5rem;
+    margin: 0 0 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-borde);
+    width: 100%;
+    max-width: 400px;
+}
+
+.profile-tab {
+    position: relative;
+    background: none;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-texto-secundario);
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.profile-tab i {
+    font-size: 1.1rem;
+    margin-right: 0.5rem;
+}
+
+.profile-tab:hover {
+    color: var(--color-primary);
+    background: rgba(var(--color-primary-rgb), 0.05);
+}
+
+.profile-tab.active {
+    color: var(--color-blanco);
+    background: var(--color-primary);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(var(--color-primary-rgb), 0.2);
+}
+
+.profile-tab.active .tab-counter {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.tab-counter {
+    background-color: rgba(var(--color-primary-rgb), 0.1);
+    color: var(--color-primary);
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    min-width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.tab-content {
+    position: relative;
+    min-height: 200px;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-pane {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==================== SECCIÓN DE FAVORITOS EN PERFIL ==================== */
+.profile-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--color-borde);
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-section:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.profile-section:first-child {
+    margin-top: 0;
+}
+
+.profile-section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-texto);
+    margin: 0 0 1.5rem;
+    display: flex;
+    align-items: center;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-borde-claro);
+}
+
+.profile-section-title i {
+    margin-right: 0.75rem;
+    width: 32px;
+    height: 32px;
+    background: rgba(var(--color-primary-rgb), 0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+}
+
+#lista-favoritos {
+    margin-top: 0.5rem;
+}
+
+#lista-favoritos:empty::before {
+    content: attr(data-empty-message);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    color: var(--color-texto-secundario);
+    padding: 2rem;
+    background: var(--color-fondo);
+    border-radius: 8px;
+    text-align: center;
+    font-style: italic;
+    border: 2px dashed var(--color-borde);
+}
+
+/* ==================== HISTORIAL DE COMPRAS ==================== */
+.purchases-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.purchase-item {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--color-borde);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.purchase-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.purchase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-borde-claro);
+}
+
+.purchase-date {
+    color: var(--color-texto-secundario);
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+}
+
+.purchase-date i {
+    margin-right: 0.5rem;
+    opacity: 0.7;
+}
+
+.purchase-status {
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 20px;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    display: inline-flex;
+    align-items: center;
+}
+
+.purchase-status i {
+    margin-right: 0.4rem;
+    font-size: 0.9em;
+}
+
+.purchase-details {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    padding: 0.75rem 0;
+}
+
+.purchase-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid var(--color-borde);
+    background: #f9f9f9;
+}
+
+.purchase-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.purchase-product-name {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: var(--color-texto);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.purchase-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-texto-secundario);
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.purchase-price {
+    margin-left: auto;
+    font-weight: 700;
+    color: var(--color-texto);
+    font-size: 1.1rem;
+    white-space: nowrap;
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 768px) {
+    .profile-tabs {
+        flex-direction: column;
+        max-width: 100%;
+        padding: 0.5rem;
+    }
+    
+    .profile-tab {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .profile-section {
+        padding: 1.25rem;
+    }
+    
+    .purchase-details {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .purchase-meta {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+    
+    .purchase-price {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+}
+
 .store-profile-name {
     font-size: 1.5rem;
     font-weight: 700;
@@ -770,5 +1718,196 @@
     
     .store-detail-item i {
         margin-top: 0;
+    }
+}
+
+/* ==================== NUEVO DISEÑO DE PERFIL ==================== */
+.profile-content {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Tarjeta de perfil */
+.profile-card {
+    background-color: #4CAF50;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.profile-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+.profile-avatar i {
+    font-size: 30px;
+    color: white;
+}
+
+.profile-details h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.3rem;
+}
+
+.profile-details p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.member-since {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* Tarjeta de saldo */
+.balance-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+
+.balance-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background-color: #E8F5E9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.balance-icon i {
+    font-size: 24px;
+    color: #4CAF50;
+}
+
+.balance-details {
+    flex: 1;
+}
+
+.balance-label {
+    margin: 0 0 5px 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.balance-amount {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Secciones del perfil */
+.profile-section {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 0.9rem;
+    color: #666;
+    text-transform: uppercase;
+    margin: 0 0 15px 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.menu-list {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #f5f5f5;
+    transition: background-color 0.2s;
+}
+
+.menu-item:last-child {
+    border-bottom: none;
+}
+
+.menu-item:hover {
+    background-color: #f9f9f9;
+}
+
+/* Estilos movidos a profile.css */
+
+.menu-item span {
+    flex: 1;
+    font-size: 1rem;
+}
+
+.menu-item i:last-child {
+    color: #ffffff;
+    font-size: 0.9rem;
+    transition: transform 0.2s;
+}
+
+/* Efectos hover para los ítems del menú */
+.menu-item:hover i:last-child {
+    transform: translateX(3px);
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .profile-card {
+        padding: 15px;
+    }
+    
+    .profile-avatar {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .profile-details h3 {
+        font-size: 1.1rem;
+    }
+    
+    .profile-details p {
+        font-size: 0.8rem;
+    }
+    
+    .balance-card {
+        padding: 12px 15px;
+    }
+    
+    .balance-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .balance-icon i {
+        font-size: 20px;
+    }
+    
+    .menu-item {
+        padding: 12px 15px;
     }
 }

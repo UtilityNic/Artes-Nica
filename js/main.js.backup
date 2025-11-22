@@ -1,9 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicializar el módulo de compartir
-    if (typeof window.CompartirModule !== 'undefined') {
-        window.CompartirModule.init();
-    }
-
     // --- ESTADO DE LA APLICACIÓN ---
     let currentUser = null;
     let users = [];
@@ -19,61 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoLink = document.getElementById('logo-link');
     const backButton = document.getElementById('back-button');
     const searchInputSection = document.getElementById('buscar-productos');
-
-    // =================================================================================
-    // CONFIGURACIÓN DEL MENÚ DE PERFIL
-    // =================================================================================
-    function setupProfileMenu() {
-        // Configurar el botón de compartir web
-        const shareButton = document.querySelector('.menu-item .fa-share-alt')?.closest('.menu-item');
-        if (shareButton) {
-            shareButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (typeof window.CompartirModule !== 'undefined') {
-                    window.CompartirModule.showShareModal();
-                } else {
-                    console.error('El módulo de compartir no está disponible');
-                }
-            });
-        }
-
-        // Configurar el botón de configuración
-        const configButton = document.querySelector('.menu-item .fa-cog')?.closest('.menu-item');
-        if (configButton) {
-            configButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                // Actualizar la URL para incluir el parámetro de configuración
-                if (typeof updateUrl === 'function') {
-                    updateUrl('configuracion', { configuracion: 'true' });
-                } else {
-                    // Si la función updateUrl no está disponible, redirigir manualmente
-                    const url = new URL(window.location);
-                    url.searchParams.set('configuracion', 'true');
-                    window.location.href = url.toString();
-                    return;
-                }
-                
-                // Navegar a la sección de configuración
-                navigateTo('configuracion');
-                
-                // Renderizar la configuración si el módulo está disponible
-                if (typeof window.ConfiguracionModule !== 'undefined') {
-                    window.ConfiguracionModule.renderConfiguracion();
-                } else {
-                    console.error('El módulo de configuración no está disponible');
-                }
-            });
-        }
-
-        // Configurar el botón de cerrar sesión
-        const logoutButton = document.querySelector('.menu-item .fa-sign-out-alt')?.closest('.menu-item');
-        if (logoutButton) {
-            logoutButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                logout();
-            });
-        }
-    }
 
     // =================================================================================
     // INICIALIZACIÓN
@@ -428,11 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
         saveUsersToStorage();
         const name = getText(product, 'nombre', 'nombre_en');
         notify('cart.added', `'${name}' fue añadido al carrito.`, 'exito', { name });
-        updateAuthUI();
-        // Forzar la actualización de la vista del carrito
-        if (currentSection === 'carrito') {
-            renderCartSection();
-        }
+        updateAuthUI(); // Asegurar que se actualicen los contadores
         updateUI();
     }
     
@@ -583,13 +519,233 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =================================================================================
-    // NAVEGACIÓN Y RENDERIZADO
+    // EXPORTAR FUNCIONES AL OBJETO GLOBAL
     // =================================================================================
-    function navigateTo(sectionId, updateHistory = true) {
-        const protectedSections = ['favoritos', 'carrito', 'perfil'];
-        if (protectedSections.includes(sectionId) && !ensureAuth()) return;
+    window.app = {
+        navigateTo,
+        navigateToStore,
+        toggleFavorite,
+        addToCart,
+        updateCartQuantity,
+        processPayment,
+        logout,
+        showMisPedidos,
+        showSection,
+        navigateToProduct,
+        setDeliveryMethod,
+        setDeliveryAddress,
+        showShareModal,
+        hideShareModal,
+        copyShareUrl,
+        shareViaWhatsApp,
+        downloadQRCode
+    };
 
-        currentSection = sectionId;
+    // =================================================================================
+    // FUNCIONALIDAD DE COMPARTIR WEB
+    // =================================================================================
+    let qrCodeInstance = null;
+
+    function showShareModal() {
+        const modal = document.getElementById('share-modal');
+        if (!modal) return;
+
+        // Obtener la URL actual de la plataforma
+        const currentUrl = window.location.origin + window.location.pathname;
+        
+        // Actualizar el input con la URL
+        const urlInput = document.getElementById('share-url-input');
+        if (urlInput) {
+            urlInput.value = currentUrl;
+        }
+
+        // Generar código QR
+        generateQRCode(currentUrl);
+
+        // Mostrar el modal
+        modal.classList.add('show');
+    }
+
+    function hideShareModal() {
+        const modal = document.getElementById('share-modal');
+        if (modal) {
+            modal.classList.remove('show');
+        }
+    }
+
+    function generateQRCode(url) {
+        const container = document.getElementById('qr-code-container');
+        if (!container) return;
+
+        // Limpiar el contenedor
+        container.innerHTML = '';
+
+        // Verificar si QRCode está disponible
+        if (typeof QRCode === 'undefined') {
+            container.innerHTML = '<p style="color: #6c757d;">Cargando generador de QR...</p>';
+            return;
+        }
+
+        try {
+            // Crear nuevo código QR
+            qrCodeInstance = new QRCode(container, {
+                text: url,
+                width: 200,
+                height: 200,
+                colorDark: "#2c3e50",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        } catch (error) {
+            console.error('Error al generar QR:', error);
+            container.innerHTML = '<p style="color: #dc3545;">Error al generar código QR</p>';
+        }
+    }
+
+    function copyShareUrl() {
+        const urlInput = document.getElementById('share-url-input');
+        const feedback = document.getElementById('copy-feedback');
+        
+        if (!urlInput) return;
+
+        // Seleccionar y copiar el texto
+        urlInput.select();
+        urlInput.setSelectionRange(0, 99999); // Para móviles
+
+        try {
+            // Intentar copiar usando la API moderna
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(urlInput.value).then(() => {
+                    showCopyFeedback(feedback);
+                }).catch(() => {
+                    // Fallback al método antiguo
+                    document.execCommand('copy');
+                    showCopyFeedback(feedback);
+                });
+            } else {
+                // Método antiguo
+                document.execCommand('copy');
+                showCopyFeedback(feedback);
+            }
+        } catch (error) {
+            console.error('Error al copiar:', error);
+            notify('share.copyError', 'No se pudo copiar la URL', 'error');
+        }
+    }
+
+    function showCopyFeedback(feedbackElement) {
+        if (!feedbackElement) return;
+        
+        feedbackElement.classList.remove('hidden');
+        notify('share.copied', '¡URL copiada al portapapeles!', 'exito');
+        
+        setTimeout(() => {
+            feedbackElement.classList.add('hidden');
+        }, 2000);
+    }
+
+    function shareViaWhatsApp() {
+        const url = document.getElementById('share-url-input')?.value || window.location.href;
+        
+        // Mensaje personalizado para WhatsApp
+        const message = `¡Descubre productos artesanales únicos de Nicaragua en ArtesaNica! 🎨✨\n\n${url}`;
+        
+        // Codificar el mensaje para URL
+        const encodedMessage = encodeURIComponent(message);
+        
+        // Crear URL de WhatsApp
+        const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+        
+        // Abrir WhatsApp en una nueva ventana
+        window.open(whatsappUrl, '_blank');
+        
+        notify('share.whatsapp', 'Abriendo WhatsApp...', 'info');
+    }
+
+    function downloadQRCode() {
+        const qrCanvas = document.querySelector('#qr-code-container canvas');
+        
+        if (!qrCanvas) {
+            notify('share.qrError', 'No se pudo encontrar el código QR', 'error');
+            return;
+        }
+
+        try {
+            // Convertir el canvas a imagen
+            const imageUrl = qrCanvas.toDataURL('image/png');
+            
+            // Crear un enlace temporal para descargar
+            const downloadLink = document.createElement('a');
+            downloadLink.href = imageUrl;
+            downloadLink.download = 'ArtesaNica-QR.png';
+            
+            // Simular clic en el enlace
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            
+            notify('share.qrDownloaded', '¡Código QR descargado!', 'exito');
+        } catch (error) {
+            console.error('Error al descargar QR:', error);
+            notify('share.downloadError', 'No se pudo descargar el código QR', 'error');
+        }
+    }
+
+    // =================================================================================
+    // EVENT LISTENERS PARA COMPARTIR WEB
+    // =================================================================================
+    function setupShareModalListeners() {
+        // Botón de cerrar modal
+        const closeBtn = document.getElementById('close-share-modal');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', hideShareModal);
+        }
+
+        // Cerrar al hacer clic fuera del modal
+        const modal = document.getElementById('share-modal');
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    hideShareModal();
+                }
+            });
+        }
+
+        // Botón de copiar URL
+        const copyBtn = document.getElementById('copy-url-btn');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', copyShareUrl);
+        }
+
+        // Botón de compartir por WhatsApp
+        const whatsappBtn = document.getElementById('share-whatsapp-btn');
+        if (whatsappBtn) {
+            whatsappBtn.addEventListener('click', shareViaWhatsApp);
+        }
+
+        // Botón de descargar QR
+        const downloadBtn = document.getElementById('download-qr-btn');
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', downloadQRCode);
+        }
+
+        // Cerrar con tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal && modal.classList.contains('show')) {
+                hideShareModal();
+            }
+        });
+    }
+
+    // Inicializar listeners del modal de compartir
+    setupShareModalListeners();
+
+    // =================================================================================
+    // INICIAR LA APLICACIÓN
+    // =================================================================================
+    initialize();
+});
+
         document.querySelectorAll('.seccion-principal').forEach(s => s.classList.add('hidden'));
         const sectionToShow = document.getElementById(`seccion-${sectionId}`);
         if (sectionToShow) {
@@ -887,9 +1043,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // RENDERIZADO DE PESTAÑAS DEL PERFIL
     // =================================================================================
     function renderProfileSection() {
-        // Configurar los eventos del menú de perfil
-        setupProfileMenu();
-        
         // Verificar si hay un hash de pestaña en la URL
         const hash = window.location.hash.substring(1);
         if (hash.startsWith('perfil/')) {

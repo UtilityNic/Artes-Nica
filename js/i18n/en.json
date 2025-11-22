@@ -19,7 +19,8 @@
     "cart": "My Cart",
     "profile": "My Profile",
     "allProducts": "All Products",
-    "moreStores": "More Stores"
+    "moreStores": "More Stores",
+    "news": "News"
   },
   "bottom": {
     "home": "Home",
@@ -40,7 +41,8 @@
     "seeMoreProducts": "See more products",
     "seeMoreStores": "See more stores",
     "viewStore": "View Store",
-    "addToCart": "Add to cart"
+    "addToCart": "Add to cart",
+    "viewNews": "View News"
   },
   "common": {
     "emptyProducts": "No products to display."
@@ -91,6 +93,17 @@
       "shipping": "Shipping cost:",
       "total": "Total:"
     }
+  },
+  "news": {
+    "title": "Stay Informed",
+    "description": "Discover the latest news, events, and updates from the artisan community.",
+    "viewButton": "View News",
+    "healthFair": {
+      "title": "We guarantee specialized medical care for Families in Niquinohomo",
+      "content": "Thanks to the \"My Hospital in My Community\" Health Fair, promoted by the Sandinista Government, families in Niquinohomo now have access to specialized medical care in their own community.",
+      "date": "November 19, 2025"
+    },
+    "comments": "0 comments"
   },
   "categories": {
     "barro": "Clay",
